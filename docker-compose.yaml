@@ -31,9 +31,12 @@ networks:
   zerowork:
     name: zerowork
 
+# Because of PWD limitations, the initial volume mount must be in the same directory as the docker-compose file. 
+# This approach keeps files together with docker-compose file and allows you to see the volume using docker volumes ls. 
+# You'll thank me later for this. 😉
 volumes:
   data:
-    name: zerowork-data
+    name: zerowork-data    
     driver_opts:
       type: none
       o: bind
