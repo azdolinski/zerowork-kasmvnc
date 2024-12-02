@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     nano \
     htop \
+    net-tools \
+    iputils-ping \
     libnss3 \
     libxss1 \
     software-properties-common \
@@ -22,9 +24,10 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && apt-get update && apt-get install -y google-chrome-stable
 
 # Download and install ZeroWork .deb package
-RUN wget https://zerowork-agent-releases.s3.amazonaws.com/public/linux/ZeroWork-1.1.56.deb -O /tmp/ZeroWork-1.1.56.deb \
-    && apt-get install -y /tmp/ZeroWork-1.1.56.deb \
-    && rm /tmp/ZeroWork-1.1.56.deb
+ARG ZEROWORK_VERSION=1.1.56
+RUN wget https://zerowork-agent-releases.s3.amazonaws.com/public/linux/ZeroWork-${ZEROWORK_VERSION}.deb -O /tmp/ZeroWork-${ZEROWORK_VERSION}.deb \
+    && apt-get update && apt-get install -y /tmp/ZeroWork-${ZEROWORK_VERSION}.deb \
+    && rm /tmp/ZeroWork-${ZEROWORK_VERSION}.deb
 
 RUN mkdir -p /etc/s6-overlay/s6-rc.d/svc-zerowork && \
 (echo '#!/usr/bin/with-contenv bash'; \
