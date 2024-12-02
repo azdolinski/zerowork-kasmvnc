@@ -1,0 +1,40 @@
+services:
+  zerowork:
+    hostname: zerowork
+    container_name: zerowork
+    # Modern GUI desktop apps have issues with the latest Docker and syscall compatibility,
+    # you can use Docker with the --security-opt seccomp=unconfined setting to allow these syscalls
+    # on hosts with older Kernels or libseccomp
+    security_opt:
+      - seccomp:unconfined
+    shm_size: '2gb'  # important for chrome - min 1gb
+    build:
+      context: .  # Current directory
+      dockerfile: Dockerfile # Name of your Dockerfile
+    ports:
+      - 3000:3000
+      - 3001:3001
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - DISPLAY=:0.0
+      - TZ=Etc/UTC
+      - CUSTOM_USER=admin
+      - PASSWORD=${PASSWORD:-admin}
+    volumes:
+      - data:/config
+    restart: unless-stopped
+    networks:
+      - zerowork
+
+networks:
+  zerowork:
+    name: zerowork
+
+volumes:
+  data:
+    name: zerowork-data
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data
