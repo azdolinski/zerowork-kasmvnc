@@ -1,5 +1,5 @@
 # zerowork-kasmvnc
-
+Container build based on [webtop:ubuntu-xfce](https://github.com/linuxserver/docker-webtop) with auto installation Chrome browser + Zerowork Client
 
 https://www.zerowork.io/
 
