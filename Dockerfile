@@ -24,7 +24,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && apt-get update && apt-get install -y google-chrome-stable
 
 # Download and install ZeroWork .deb package
-ARG ZEROWORK_VERSION=1.1.56
+ARG ZEROWORK_VERSION=1.1.68
 RUN wget https://zerowork-agent-releases.s3.amazonaws.com/public/linux/ZeroWork-${ZEROWORK_VERSION}.deb -O /tmp/ZeroWork-${ZEROWORK_VERSION}.deb \
     && apt-get update && apt-get install -y /tmp/ZeroWork-${ZEROWORK_VERSION}.deb \
     && rm /tmp/ZeroWork-${ZEROWORK_VERSION}.deb
