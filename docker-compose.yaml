@@ -2,15 +2,16 @@ services:
   zerowork:
     hostname: zerowork
     container_name: zerowork
+    image: ghcr.io/azdolinski/zerowork-kasmvnc:latest
     # Modern GUI desktop apps have issues with the latest Docker and syscall compatibility,
     # you can use Docker with the --security-opt seccomp=unconfined setting to allow these syscalls
     # on hosts with older Kernels or libseccomp
     security_opt:
       - seccomp:unconfined
     shm_size: '2gb'  # important for chrome - min 1gb
-    build:
-      context: .  # Current directory
-      dockerfile: Dockerfile # Name of your Dockerfile
+    #build:
+    #  context: .  # Current directory
+    #  dockerfile: Dockerfile # Name of your Dockerfile
     ports:
       - 3000:3000
       - 3001:3001
